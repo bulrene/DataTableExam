@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+DataTables는 Ajax에서 얻을 수있는 거의 모든 JSON 데이터 소스에서 데이터를 읽을 수 있습니다. 이것은 가장 간단한 형식으로 ajax 옵션을 JSON 데이터 소스의 주소로 설정하여 수행 할 수 있습니다.
+
+ajax 옵션은 또한 Ajax 요청이 어떻게 변경되는지 등과 같은 고급 구성을 허용합니다. 더 자세한 정보는 ajax 문서와 다른 Ajax 예제를 참조하십시오.
+
+아래 예제는 데이터 소스로 배열에서 테이블에 대한 데이터를로드하는 DataTable을 보여줍니다 (개체 매개 변수는 columns.data 옵션을 통해 사용할 수도 있음).
+-->
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    
+	<script type="text/javascript" class="init">
+     $(document).ready(function(){
+        $('#example').DataTable({
+            "ajax": './ajax/data/arrays.txt'
+        });
+     });
+	</script>
+</head>
+<body>
+<div id="demo_info" class="box"></div>    
+<div class="content">     
+  <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Extn.</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Extn.</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>    
+</body>    
+    
+</html>
