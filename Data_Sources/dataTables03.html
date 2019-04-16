@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+이 테이블은 Ajax로 데이터를로드합니다. 로드 된 최신 데이터는 다음과 같습니다. 이 데이터는 추가 데이터가 로드 될 때 자동으로 업데이트됩니다.
+
+이 테이블에 대한 서버 측 처리를 수행하는 데 사용되는 스크립트는 다음과 같습니다. 이것은 PHP를 사용하는 예제 스크립트 일뿐입니다. 서버 측 처리 스크립트는 DataTables 설명서에 설명 된 프로토콜을 사용하여 모든 언어로 작성할 수 있습니다.
+-->
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    
+	<script type="text/javascript" class="init">
+     $(document).ready(function() {
+        $('#example').DataTable( {
+            "processing": true,
+            "serverSide": true,
+            "ajax": "../server_side/scripts/server_processing.php"
+        } );
+    } );
+	</script>
+</head>
+<body>
+<div id="demo_info" class="box"></div>    
+<div class="content">     
+  <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Extn.</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Extn.</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>    
+</body>    
+    
+</html>
