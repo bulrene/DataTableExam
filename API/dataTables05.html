@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+하위 행 (추가 정보 / 상세 정보 표시)
+DataTables API에는 자식 행을 DataTable의 부모 행에 연결하는 여러 가지 메서드가 있습니다. 행에 대한 추가 정보를 표시하는 데 사용할 수 있습니다. 행에 대한 자세한 정보를 전달하려는 경우 호스트 테이블 공간보다 유용합니다.
+
+아래 예제는 row (). child 메소드를 사용하여 먼저 행이 이미 표시되어 있는지 확인한 다음 숨긴 경우 (row (). child.hide ()) 그렇지 않으면 표시 (row (). 보여 주다()). 이 예제에서 자식 행의 내용은 format () 함수에 의해 정의되지만 추가 정보를 얻기 위해 서버에 대한 Ajax 호출을 포함하여 표시하려는 내용으로 바꿀 수 있습니다.
+-->
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <style>
+       td.details-control {
+        background: url('./image/details_open.png') no-repeat center center;
+        cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('./image/details_close.png') no-repeat center center;
+        }
+      }   
+    </style>
+	<script type="text/javascript" class="init">
+            /* Formatting function for row details - modify as you need */
+        function format ( d ) {
+            // `d` is the original data object for the row
+            return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+                '<tr>'+
+                    '<td>Full name:</td>'+
+                    '<td>'+d.name+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td>Extension number:</td>'+
+                    '<td>'+d.extn+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td>Extra info:</td>'+
+                    '<td>And any further details here (images etc)...</td>'+
+                '</tr>'+
+            '</table>';
+        }
+
+        $(document).ready(function() {
+            var table = $('#example').DataTable( {
+                "ajax": "./ajax/data/objects.txt",
+                "columns": [
+                    {
+                        "className":      'details-control',
+                        "orderable":      false,
+                        "data":           null,
+                        "defaultContent": ''
+                    },
+                    { "data": "name" },
+                    { "data": "position" },
+                    { "data": "office" },
+                    { "data": "salary" }
+                ],
+                "order": [[1, 'asc']]
+            } );
+
+            // Add event listener for opening and closing details
+            $('#example tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row( tr );
+
+                if ( row.child.isShown() ) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child( format(row.data()) ).show();
+                    tr.addClass('shown');
+                }
+            } );
+        } );
+	</script>
+    
+</head>
+<body>
+<div class="content"> 
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>    
+</body>    
+    
+</html>
